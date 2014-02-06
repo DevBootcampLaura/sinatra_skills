@@ -2,4 +2,34 @@
   <h1>User Skills and Levels</h1>
 
   <%# TODO: display the skills and proficiency levels for each user ... %>
+
+    <% user = User.find(session[:user_id]) %>
+    <%= "Hello, #{user.name}!" %>
+
+    <p>Add a skill to your list...</p>
+    <form method="post" action="/">
+      <input type="text" placeholder="skill" name="name"><br>
+      <input type="text" placeholder="years practicing" name="years"><br>
+      <p>Do you have formal training/education in this skill?</p>
+      <input type="radio" name="formal" value="true">yes<br>
+      <input type="radio" name="formal" value="false">no<br>
+      <p>What kind of skill is this?</p>
+      <input type="radio" name="context" value="technical">technical<br>
+      <input type="radio" name="context" value="creative">creative<br>
+      <input type="submit" value="Add Skill">
+
+    </form>
+
+    <p>My Skills:</p>
+    <% user.proficiencies.each do |p| %>
+      <ul>
+        <li>skill: <%= "#{p.skill.name}" %></li>
+        <li>context: <%= "#{p.skill.context}" %></li>
+        <li>years practiced: <%= "#{p.years}" %></li>
+      </ul>
+
+    <% end %>
+
+
+
 </div>

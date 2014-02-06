@@ -5,6 +5,17 @@ get '/' do
   erb :index
 end
 
+post '/' do
+  puts params
+  skill = Skill.find_or_create_by_name(name: params[:name], context: params[:context])
+  user = User.find(session[:user_id])
+  user.skills #<< skill
+  user.proficiencies << Proficiency.create(user_id: session[:user_id], skill_id: skill.id, years: params[:years], formal: params[:formal])
+
+  erb :index
+end
+
+
 #----------- SESSIONS -----------
 
 get '/sessions/new' do
